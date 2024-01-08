@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/CSS/Bootstraplayoutpage.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navicat-color">
+        <div class="container-fluid">
+           <div class="navbar-header hstack ">
+               <div class="hstack">
+                   <img src="~/Content/Images/icons8-c-100.png" style="width:70px;height:30px" />
+               </div>
+               <ul class="nav navbar-nav hstack">
+                   <li>@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
+                   <li>@Html.ActionLink("Login", "Login", "Home", new { @class = "nav-link" })</li>
+                   <li>@Html.ActionLink("Register", "Register", "Home", new { @class = "nav-link" })</li>
+                   <li>@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
+                   <li>@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
+               </ul>
+              </div>         
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

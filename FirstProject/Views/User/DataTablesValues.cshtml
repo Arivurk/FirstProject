@@ -1,0 +1,39 @@
+﻿@model System.Data.DataTable
+@using System.Data
+
+<div class="table">
+
+    @if (Model != null)
+    {
+        <div class="table table-striped" border="1">
+            <div>
+                @foreach (System.Data.DataColumn col in Model.Columns)
+                {
+                    <div id="userData">
+                        <input type="checkbox" id="checkboc" name="columns" value="@col" />
+                        @col
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    <input type="button" id="submit" onclick="show()" value="View" />
+</div>
+<div hidden id="datas">@ViewData["user"]</div>
+<div id="user"></div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var test = new Array();
+            var data = document.getElementById("datas").innerHTML;
+            @*var data = '@ViewData["user"]';*@
+            $("input[name='columns']:checked").each(function () {
+                test.push($(this).val());
+            });
+              var url = '@Url.Content("~/User/GetTablesColumns/")'+test+'/'+data;
+       /*     alert(url);*/
+            $('#user').load(url);
+        });
+    });
+</script>

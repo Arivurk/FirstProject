@@ -1,0 +1,103 @@
+﻿@model IEnumerable<FirstProject.Models.UserModel>
+@{
+    ViewBag.Title = "Listdetails";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="/path/to/jquery-latest.js"></script>
+<script type="text/javascript" src="/path/to/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="/path/to/jquery.tablesorter.widgets.js"></script>
+<h2>Listdatas</h2>
+
+<table class="table table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <td><input type="checkbox" id="checkboxall" /></td>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Branch name</th>
+            <th class="form-control">
+                <select style="border:none" id="user">
+                    <option value=0>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tablesdetails">
+        <tr>
+            @foreach (var item in Model)
+            {
+            <tr id="tablesdetails">
+                <td><input type="checkbox" class="chkcheckbox" value="@item.Branchname" id="seletcbranch" /></td>
+                <td>@Html.DisplayFor(ModelItem => item.Firstname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Lastname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Branchname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Gender)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div id="tablesdetail"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#checkboxall').click(function () {
+                if ($(this).is(":checked")) {
+                    $(".chkcheckbox").prop('checked', true)
+                } else {
+                    $(".chkcheckbox").prop('checked', false)
+                }
+            });
+        });
+
+    $('#user').on('change', function () {
+        $('#tablesdetails').ready(function () {
+                var values = document.getElementById("user");
+                var datas = document.getElementById("seletcbranch").value;
+            var getvalu = values.options[values.selectedIndex].value.toString();
+            if (getvalu.trim() != 0) {
+                 var url = '@Url.Content("~/User/SelectBasedGender")' + '/' + getvalu + '/' + datas;
+                $('#tablesdetails').hide();
+                $('#tablesdetail').load(url).show();
+            }
+            else if (getvalu.trim() == 0) {
+                $('#tablesdetails').show();
+                $('#tablesdetail').hide();
+            }
+            });
+    });
+        $(function () {
+            $("#myTable").tablesorter();
+        });
+        $(function () {
+            $("#myTable").tablesorter({ sortList: [[0, 0], [1, 0]] });
+        });
+       
+    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $('#selectgender').mouseup(function () {
+                    var url = '@Url.Content("~/User/SelectGender")';
+                    $('#selectgender').hide();
+                    $('#user').load(url).show();
+                });
+                $('#selectgender').mouseDown(function () {
+                    var url = '@Url.Content("~/User/SelectGender")';
+                    $('#selectgender').show();
+                    $('#user').load(url).hide();
+                });
+            });
+        </script>*@
+    <script>
+    $(document).ready(function () {
+        var url = '@Url.Content("~/User/SelectGender")';
+        $('#user').load(url).show();
+    });
+        $(function () {
+            $("#myTable").tablesorter({ sortList: [[0, 0], [1, 0]] });
+        });
+    </script>
+
+
+

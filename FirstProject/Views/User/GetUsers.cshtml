@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "GetUsers";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+<h2>GetUsers</h2>
+
+<table class="table table-bordered table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <td><input type="checkbox" id="checkboxall" /></td>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Branch name</th>
+            <th>
+                <select style="border:none" id="user"  class="form-control">
+                    <option value="Gender">Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </th>
+        </tr>
+    </thead>
+    <tr>
+        <td>
+            <div id="UpdatePanel">
+
+            </div>
+        </td>
+    </tr>
+</table>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajex({
+            url: "@Url.Action("GetUser","User")",
+            data: "",
+            type: "GET",
+            dataType: "Json",
+            success: function (data) {
+                LoadData(data);
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+        $.ajex({
+            url: "@Url.Action("GetdetailsFromBranch","User")";
+            data: { prefix: $('#txtSearch').val()},
+            type: "GET",
+            dataType: "Json",
+            success: function (data) {
+                LoadData(data);
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+        function LoadData() {
+            var tab = $('<table class="MyTable"></table>');
+            var thead = $('<thead></thead>');
+            thead.append('<th>First name</th>');
+            thead.append('<th>Last name</th>');
+            thead.append('<th>Branch name</th>');
+            thead.append('<th>Gender</th>');
+            tab.append(thead);
+            $.each(data, function (i, val) {
+                var trow = $('<tr></tr>');
+                trow.append('<td>' + val.Firstname + '</td>');
+                trow.append('<td>' + val.Lastname + '</td>');
+                trow.append('<td>' + val.Branchname + '</td>');
+                trow.append('<td>' + val.Gender + '</td>');
+                tab.append(trow);
+            });
+            $("tr:odd", tab).css('background-color', '#C4C4C4');
+            $("#UpdatePanel").html(tab);
+        };
+    });
+</script>*@
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "ajex": {
+                "url": "/User/GetdetailsFromBranch",
+                "type": "GET",
+                "dataType": "json",
+            },
+            "Columns": [
+                { "data": "Firstname" },
+                { "data": "Lastname" },
+                { "data": "Branchname" },
+                { "data":"Gender"}
+            ]
+        });
+    });
+</script>

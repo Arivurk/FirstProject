@@ -1,0 +1,8 @@
+﻿@using FirstProject.Models
+@model selectGender
+@{
+    ViewBag.Title = "SelectGender";
+}
+
+@Html.DropDownListFor(model => model.selecGender, new SelectList(Enum.GetValues(typeof(Gender))), "Gender", htmlAttributes: new {@id= "user", @style = "border:none" })
+

@@ -1,0 +1,44 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewBag.Title = "ShowTablesData";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+<h2>ShowTablesData</h2>
+<div>
+    @if (Model != null) { 
+    <table class="table table-bordered" border="1">
+        <thead>
+            <tr>
+                @foreach(System.Data.DataColumn col in Model.Columns)
+                {
+                    <th>@col</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            
+                @foreach (System.Data.DataRow row in Model.Rows)
+                {
+                    <tr>
+                        @foreach (var cell in row.ItemArray)
+                        {
+                        if (cell != null)
+                        {
+                        <td>@cell.ToString()</td>
+                         }
+                         else
+                        {
+                            <td></td>
+                        }
+
+                        }
+                    </tr>
+                }
+            
+          
+        </tbody>
+    </table>
+    }
+</div>

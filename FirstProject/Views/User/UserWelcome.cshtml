@@ -1,0 +1,57 @@
+﻿@model FirstProject.Models.UserModel
+
+@{
+    ViewBag.Title = "UserWelcome";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js" rel="stylesheet">
+@using (Html.BeginForm("UserWelcome", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <h2>UserWelcome</h2>
+        <div class="form_control choose-selected">
+            <div class="">
+                @Html.DropDownListFor(model => model.Branchname, @ViewBag.data as SelectList, htmlAttributes: new { @class = "form-control choose-selected", @id = "branchid", @onchange = "senddata()" })
+                @*@Html.DropDownListFor("dropk",@ViewBag.data as SelectList, htmlAttributes: new { @class = "form-control choose-selected", @id = "branchid", @onchange = "senddata()" })*@
+            </div>
+        </div>
+        <div>
+            <div id="result">
+               
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $('#branchid').on('change', function () {
+        $('#branchid').ready(function () {
+            debugger;
+                var value = document.getElementById("branchid");
+                var getvalu = value.options[value.selectedIndex].text;
+                var url = '@Url.Content("~/User/DataTablesValues/")'+getvalu;
+                $('#result').load(url);
+               /* alert(getvalu); */
+        });
+    });
+        //$(document).ready(function () {
+        //    $('#button').on('click',function () {
+        //        var url = $('#myModal').data('url');
+        //        $.get(url, function (data) {
+        //            $("#myModal").html(data);
+        //            $("#myModal").modal('show');
+        //        });
+        //    });
+        //});
+</script>
+

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<FirstProject.Models.UserModel>
+@{
+    ViewBag.Title = "SelectBasedGender";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<table class="table table-striped" >
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="datas1">
+                <td><input type="checkbox" class="chkcheckbox" value="@item.Branch_Id" /></td>
+                <td>@Html.DisplayFor(ModelItem => item.Firstname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Lastname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Branchname)</td>
+                <td>@Html.DisplayFor(ModelItem => item.Gender)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

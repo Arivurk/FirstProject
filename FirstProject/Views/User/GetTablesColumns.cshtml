@@ -1,0 +1,348 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewBag.Title = "GetTablesColumns";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>ShowTablesData</h2>
+<div>
+    <p id="tempdet" hidden>@Session["user"]</p>
+    @if (Model != null)
+    {
+
+
+
+        <table class="table table-striped table-bordered" id="myTable" border="1">
+            <thead>
+                @*@Html.ListBox("userdata", new SelectList(string.Empty, "Value", "Text", "--Seletct All--", new { @class = "multiselect", @multiple = "multiple", @id = "Mydrop" }))*@
+                <tr>
+                    @foreach (System.Data.DataColumn col in Model.Columns)
+                    {
+                        <th id="@col">
+                            @col<img src="~/Content/Images/filter-6554.png" id="filterimage" value="@col" style="float:right;cursor:pointer" />
+                            <select with="100px" value="" class="Selectdata">
+                            </select>
+                        </th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in Model.Rows)
+                {
+                    <tr>
+                        @foreach (var cell in row.ItemArray)
+                        {
+                            if (cell != null)
+                            {
+                                <td>@cell.ToString()</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<link src="https://common.olemiss.edu/_js/datatables/media/js/jquery.dataTables.js" rel="stylesheet"/>
+<link src="https://common.olemiss.edu/_js/datatables/media/js/jquery.js" rel="stylesheet"/>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    //$(document).ready(function () {
+    //    $("#myTable thead tr").clone(true).addClass(".filtres").appendTo("#myTable thead");
+    //    var table = $("myTable").DataTable({
+    //        orderCellsTop: true,
+    //        fixedHeader: true,
+    //        initComplete: function () {
+    //            var api = this.api();
+    //            api.columns().eq(0).each(function(colIdx){
+    //                var cell = ('.filtres th').eq(
+    //                    $(api.column(colIdx).header()).index()
+    //                );
+
+    //            })
+    //        }
+    //    });
+    //});
+
+    //$(document).ready(function () {
+    //    $('#myTable').DataTable({
+    //        order: [[3, 'desc']],
+    //    });
+    //});
+    //$(document).ready(function () {
+    //    $("th").on('click', function () {
+    //        var id = $("th").text().trim();
+    //        urldat = '/User/SelectDropdownColumn/' + id;
+    //        $.ajax({
+    //            url: urldat,
+    //            type: 'POST',
+    //            success: function (options) {
+    //                $.each(options, function (index, option) {
+    //                    $('.Selectdata').append($('<option>', {
+    //                        value: option.Value,
+    //                        text: option.Text,
+    //                    }+'</option>'));
+    //                });
+    //            }
+    //        });
+    //        console.log($(this).text());
+    //        alert($(this).text().trim());
+
+    // });
+
+
+
+    //$(function () {
+    //  var table= $("#myTable").DataTable();
+    //    $("th").mouseup(function () {
+    //        var id = this.text().trim();
+    //         loaddata(id);
+    //        });
+    //    function loaddata(id) {
+
+    //        var urldat = '/User/SelectDropdownColumn/' + id1;
+    //        $.ajax({
+    //            url: urldat,
+    //            type: 'GET',
+    //            success: function (options) {
+    //                $.each(options, function (index, option) {
+    //                    $('.Selectdata').append($('<option>', {
+    //                        value: option.Value,
+    //                        text: option.Text,
+    //                    }+'</option>'
+    //                    ));
+    //                });
+    //            }
+    //        });
+
+    //    }
+
+    //    });
+
+
+
+    //$(document).ready(function () {
+    //    $('#myTable').DataTable({
+    //        "headerCallback": function (thead, data, start, end, display) {
+    //            $(thead).find('th').on('click',function () {
+    //                var columnIndex = $(this).index();
+    //                var dats = $(this).text().trim();
+    //                var dropdownData = [];
+    //              /*  var column1Data = dats.DataTable().column(0).data().toArray();   */
+    //                $('#myTable').DataTable().rows().every(function () {
+    //                    dropdownData.push(this.cell(columnIndex).data());
+    //                });
+    //                var dropdown = $('#Mydrop');
+    //                dropdown.empty();
+    //                $.each(dropdownData, function (index, value) {
+    //                    dropdown.append($('<option>').text(index));
+    //                });
+    //                alert(column1Data);
+    //            });
+    //        }
+    //    });
+    //});
+    //$(function () {
+    //    $(document).ready(function () {
+    //        $("#myTable").DataTable();
+    //        $("img").on('click', function () {
+    //            var id = $(this).parent().text().trim();
+    //            var name = $("#tempdet").text().trim();
+    //            var urldat = '/User/SelectDropdownColumn/' + id + '/' + name;
+    //            $.ajax({
+    //                url: urldat,
+    //                type: 'GET',
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                    var options = '';
+    //                    $.each(data, function (index, customer) {
+    //                        options += '<option id="optiontags" value="' + customer.data + '">' + customer.data + '</option>';
+    //                    });
+    //                    $('#Mydrop').html(options);
+    //                    $('#Mydrop').DataTable({
+    //                        columns: [
+    //                            { title: 'data', data: 'data' },
+    //                        ]
+    //                    });
+    //                }
+    //            });
+    //            /*alert(urldat);*/
+    //        });
+    //    });
+    //});
+
+    //$(document).ready(function () {
+    //    $("#Mydrop").change(function () {
+    //        var data = document.getElementById("#optiontags").text();
+    //        alert(data);
+    //    });
+    //});
+    $(function () {
+        $(".Selectdata").hide();
+        $("#myTable").DataTable();
+        $("img").on('click', function () {
+            var Id = '';
+            Id = $(this).parent().text().trim();
+            $(this).first().next().show();     
+            var name = $("#tempdet").text().trim();
+            var url1 = '@Url.Action("SelectDropdownColumn","User")'+'/'+Id+'/'+name;
+            $(".Selectdata").empty();
+            $.ajax({
+             type: 'GET',
+                 url: url1,
+                 dataType: 'json',
+                 success: function (data) {
+                     $.each(data, function (i, data) {
+                         $(".Selectdata").append('<option id="userselce"  value="' + data.Value + '">' +
+                             data.Text + '</option>');
+                });
+           },
+           error: function (ex) {
+               alert('Failed to retrieve post.' + ex);
+            }
+       });
+        });
+    });
+    //////$(function () {
+    //////    $(".Selectdata").hide();
+    //////    var table = $("#myTable").DataTable();
+    //////    $("img").on('click', function () {
+    //////        $(this).first().next().show();
+    //////        var id = $(this).parent().text().trim();
+    //////        var name = $("#tempdet").text().trim();
+    //////        var urldat = '/User/SelectDropdownColumn/' + id + '/' + name;
+    //////        $(".Selectdata").empty();
+    //////        $.ajax({
+    //////            url: urldat,
+    //////            type: 'GET',
+    //////            success: function (options) {
+    //////                $.each(options, function (index, option) {
+    //////                    $('.Selectdata').append($('<option>', {
+    //////                        value: option.Value,
+    //////                        text: option.Text,
+    //////                    }
+    //////                    ));
+    //////                });
+    //////            }
+    //////        });
+    //////    });
+    //////    $(".Selectdata").hide();
+    //////});
+    //$(document).ready(function () {
+
+    //    $('#userdata option').each(function () {
+    //        var value = $(this).val();
+    //        var text = $(this).text();
+    //        $(this).html('<input type="checkbox" value="' + value + '" />' + text);
+    //    });
+
+    //    $('#userdata input[type="checkbox"]').on('click', function () {
+    //        var selectedValues = [];
+    //        $('#userdata input[type="checkbox"]:checked').each(function () {
+    //            selectedValues.push($(this).val());
+    //        });
+
+    //    });
+
+    //});
+@* $(document).ready(function () {
+   $("#myTable").DataTable();
+   $("img").on('click', function () {
+       var Id = $(this).parent().text().trim();
+          var name = $("#tempdet").text().trim();
+       $("#Mydrop").empty();
+    $.ajax({
+        type: 'GET',
+       url:'@Url.Action("SelectDropdownColumn","User")',
+             dataType: 'json',
+            data: { 'id': Id, 'name': name },
+          success: function (posts) {
+                 $.each(posts, function (i, post) {
+                     $("#Mydrop").append('<option value="' + post.Value + '">' +
+                          post.Text + '</option>');
+                 });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve post.' + ex);
+             }
+        });
+
+     })
+}); *@
+    $(function () {
+       $("#myTable").DataTable();
+        $(".Selectdata").on('change',function () {
+            var value = $(".Selectdata").first().find("option:selected").text().trim();
+           ///* alert(data);*/
+           // $("#myTable tbody tr").eq(0).each(function () {
+           //     var row = $(this);
+           //     var col1 = row.find("td:eq(0)").length().text().trim();
+           //     alert(col1);
+           //     if (col === data) {
+           //         row.show();
+           //     }
+           //     else {
+           //         row.hide();
+           //     }
+           // });
+            filterTable(value);
+        });
+    });
+    //function filterTable(value) {
+    //    var table = $('#myTable').DataTable();
+    //    table.columns().visible(true);
+    //    if (value) {
+    //        table.columns(':not(:eq(0))').each(function (colIdx) {
+    //            if (table.column(colIdx).header().innerHTML !== value) {
+    //                table.column(colIdx).visible(false);
+    //            }
+    //        });
+    //    }
+    //    table.draw();
+    //}
+    function filterTable(value) {
+        var table = $('#myTable').DataTable();
+        table.columns().visible(true);
+        if (value) {
+            table.columns().eq(0).each(function (colIdx) {
+                table.column(colIdx).search(value ? '^' + value + '$' : '', true, false);
+            });
+            table.columns().visible(true);
+            table.columns(':not(:eq(0))').visible(false);
+            table.draw();
+        }
+        else {
+            table.show();
+        }
+    }
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#myTable tfoot th').each(function () {
+            var title = $('#myTable thead th').eq($(this).index()).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#myTable').DataTable();
+
+        // Apply the search
+        table.columns().eq(0).each(function (colIdx) {
+            $('input', table.column(colIdx).footer()).on('keyup change', function () {
+                table
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    });
+</script>
+
+

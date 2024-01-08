@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "tablesdata";
+    
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" />
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js" rel="stylesheet">
+<h2>tablesdata</h2>
+<table id="prfiledata" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Branch_Id</th>
+            <th>Gender</th>
+            <th>Mobile</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Branch_Id</th>
+            <th>Gender</th>
+            <th>Mobile</th>
+            <th>Email</th>
+        </tr>
+    </tfoot>
+</table>
+<link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            debugger;
+            $("#prfiledata").DataTable({
+                "ajex": {
+                    "url": "/Data/listsdata",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Username", "name": "Username" },
+                    { "data": "Firstname", "name": "Firstname" },
+                    { "data": "Lastname", "name": "Lastname" },
+                    { "data": "Branch_Id", "name": "Branch_Id" },
+                    { "data": "Gender", "name": "Gender" },
+                    { "data": "Mobile", "name": "Mobile" },
+                    { "data": "Email", "name": "Email" },
+                    { "data": "City", "name": "City" },
+                    { "data": "State", "name": "State" }
+                ]
+            });
+        });
+    </script>
+
